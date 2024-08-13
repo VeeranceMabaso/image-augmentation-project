@@ -3,8 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
+from tensorflow.keras.models import load_model
+from models.gan import build_generator
 
 app = Flask(__name__)
+
+generator = build_generator()
+generator.load_weights('generator.h5')
 
 @app.route('/')
 def index():
@@ -12,8 +17,9 @@ def index():
 
 @app.route('/generate')
 def generate_image():
-    # Use your GAN or VAE to generate an image
-    img = np.random.rand(32, 32, 3)  # Placeholder
+    noise = np.random.normal(size=(1, 100))
+    img = generator.predict(noise)[0]
+    img = (img + 1.0) / 2.0  # Rescale to [0, 1]
     buf = BytesIO()
     plt.imsave(buf, img)
     buf.seek(0)

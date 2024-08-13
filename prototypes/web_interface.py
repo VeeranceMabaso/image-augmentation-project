@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 from tensorflow.keras.models import load_model
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from models.gan import build_generator
 
 app = Flask(__name__)

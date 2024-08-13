@@ -1,9 +1,15 @@
 import tensorflow as tf
 from tensorflow.keras.optimizers import Adam
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from models.vae import build_encoder, build_decoder
 from models.gan import build_generator, build_discriminator
 from data.preprocess import load_and_preprocess_data
+import warnings
+warnings.filterwarnings("ignore")
 
-def train_gan(epochs=10000, batch_size=64):
+def train_gan(epochs=100, batch_size=64):
     (x_train, _), _ = load_and_preprocess_data()
     x_train = x_train * 2.0 - 1.0  # Rescale to [-1, 1]
     

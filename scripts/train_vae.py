@@ -1,6 +1,11 @@
 import tensorflow as tf
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from models.vae import build_encoder, build_decoder
 from data.preprocess import load_and_preprocess_data
+import warnings
+warnings.filterwarnings("ignore")
 
 def vae_loss(x_true, x_pred, z_mean, z_log_var):
     reconstruction_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(x_true, x_pred))

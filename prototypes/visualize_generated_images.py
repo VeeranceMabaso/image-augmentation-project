@@ -1,5 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from models.gan import build_generator
 
 def visualize_generated_images():

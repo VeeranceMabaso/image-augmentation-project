@@ -1,11 +1,12 @@
 import numpy as np
 import tensorflow as tf
 from models.gan import build_generator
-from models.vae import build_decoder
+from models.vae import build_decoder, build_encoder
 from data.preprocess import load_and_preprocess_data
 
 def augment_data(num_samples=10000):
     (x_train, _), _ = load_and_preprocess_data()
+    encoder = build_encoder(latent_dim=2)
     generator = build_generator()
     decoder = build_decoder(latent_dim=2)
     generator.load_weights('generator.h5')
